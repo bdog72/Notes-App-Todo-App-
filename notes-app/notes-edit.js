@@ -1,6 +1,7 @@
 const titleElement = document.querySelector('#note-title');
 const bodyElement = document.querySelector('#note-body');
 const removeElement = document.querySelector('#remove-note');
+const dataElement = document.querySelector('#last-edited');
 const noteId = location.hash.substring(1);
 let notes = getSavedNotes();
 let note = notes.find(function(note) {
@@ -13,6 +14,7 @@ if (note === undefined) {
 
 titleElement.value = note.title;
 bodyElement.value = note.body;
+dataElement.textContent = generateLastEdited(note.updatedAt);
 
 // const te = e => {
 //   note.title = e.target.value;
@@ -21,6 +23,8 @@ bodyElement.value = note.body;
 
 titleElement.addEventListener('input', function(e) {
   note.title = e.target.value;
+  note.updatedAt = moment().valueOf();
+  dataElement.textContent = generateLastEdited(note.updatedAt);
   saveNotes(notes);
 });
 
@@ -28,6 +32,8 @@ titleElement.addEventListener('input', function(e) {
 
 bodyElement.addEventListener('input', function(e) {
   note.body = e.target.value;
+  note.updatedAt = moment().valueOf();
+  dataElement.textContent = generateLastEdited(note.updatedAt);
   saveNotes(notes);
 });
 
@@ -50,5 +56,6 @@ window.addEventListener('storage', function(e) {
 
     titleElement.value = note.title;
     bodyElement.value = note.body;
+    dataElement.textContent = generateLastEdited(note.updatedAt);
   }
 });
