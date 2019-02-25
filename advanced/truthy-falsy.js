@@ -1,5 +1,6 @@
 const products = [];
 const product = products[0];
+console.log(product);
 
 // Truthy - Values that resolve to true in boolean context
 // Falsy - Valuse that resolve on false context
